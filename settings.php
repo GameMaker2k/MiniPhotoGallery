@@ -27,4 +27,5 @@ $Settings['index'] = "index.php";
 $Settings['thumbnail'] = "thumbnail.php";
 $Settings['date_format'] = "m/d/Y";
 $Settings['time_format'] = "H:i:s";
+$Settings['site_title'] = "Image Viewer 2k";
 ?>

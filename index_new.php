@@ -27,7 +27,8 @@ if($Settings['url_style']!=1 && $Settings['url_style']!=2) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
-  <title> Image Viewer 2k </title>
+  <?php if(isset($_GET['dir']))
+  <title> <?php echo $Settings['site_title']; ?> </title>
   <base href="<?php echo $Settings['photo_url']; ?>" />
 <style type="text/css">
 body {
@@ -102,7 +103,7 @@ if(isset($_GET['dir']) && in_array($_GET['dir'],$ListDir)) {
 $ListFile = file_list_dir($Settings['photo_dir'].$_GET['dir']."/",true,false);
 $x=1; $y=count($ListFile); $z = 0;
 while ($x <= $y) {
-if(isset($ListFile[$x])===true && $ListFile[$x]!=null) {
+if(isset($ListFile[$x]) && $ListFile[$x]!=null) {
 $exif_data = exif_read_data($Settings['photo_dir'].$_GET['dir']."/".$ListFile[$x]);
 $emake = trim(preg_replace('/\s\s+/', ' ', $exif_data['Make']));
 $emodel = trim(preg_replace('/\s\s+/', ' ', $exif_data['Model']));
@@ -135,7 +136,7 @@ if(($z==$_GET['num']) || ($z<$_GET['num'] && $x==$y)) { echo "   </tr>\n  </tabl
 if(!isset($_GET['dir'])) {
 $x=0; $y=count($ListDir);
 while ($x <= $y) {
-if(isset($ListDir[$x])===true && $ListDir[$x]!=null) {
+if(isset($ListDir[$x]) && $ListDir[$x]!=null) {
 if($Settings['url_style']==1) { 
 echo "<a href=\"".$Settings['index']."?dir=".$ListDir[$x]."\">".$ListDir[$x]."</a><br />\n"; }
 if($Settings['url_style']==2) { 

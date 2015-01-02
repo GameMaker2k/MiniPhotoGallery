@@ -13,9 +13,5 @@
 
     $FileInfo: index.php - Last Update: 1/2/2015 Ver 2.5 - Author: cooldude2k $
 */
-require_once("settings.php");
-if(strtolower($Settings['photo_style'])!="new" && 
-   strtolower($Settings['photo_style'])!="old") { $Settings['photo_style'] = "new"; }
-if(strtolower($Settings['photo_style'])=="new") { require_once("index_new.php"); }
-if(strtolower($Settings['photo_style'])=="old") { require_once("index_old.php"); }
+header("Location: ../index.php");
 ?>
