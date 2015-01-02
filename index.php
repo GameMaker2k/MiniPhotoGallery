@@ -11,7 +11,7 @@
     Copyright 2004-2015 iDB Support - http://idb.berlios.de/
     Copyright 2004-2015 Game Maker 2k - http://gamemaker2k.org/
 
-    $FileInfo: index.php - Last Update: 1/2/2015 Ver 2 - Author: cooldude2k $
+    $FileInfo: index.php - Last Update: 1/2/2015 Ver 2.5 - Author: cooldude2k $
 */
 require_once("settings.php");
 if(strtolower($Settings['photo_style'])!="new" && 

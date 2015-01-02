@@ -11,17 +11,17 @@
     Copyright 2004-2015 iDB Support - http://idb.berlios.de/
     Copyright 2004-2015 Game Maker 2k - http://gamemaker2k.org/
 
-    $FileInfo: index_new.php - Last Update: 1/2/2015 Ver 2 - Author: cooldude2k $
+    $FileInfo: index_new.php - Last Update: 1/2/2015 Ver 2.5 - Author: cooldude2k $
 */
 require_once("settings.php"); 
 $_GET['num'] = 2;
 /*
 if(!isset($_GET['num'])) { $_GET['num'] = 2; }
 if(!is_numeric($_GET['num'])) { $_GET['num'] = 2; }
-if($_GET['num']<5&&$_GET['num']>25) { $_GET['num'] = 2; }
+if($_GET['num']<5 && $_GET['num']>25) { $_GET['num'] = 2; }
 */
 if(!isset($Settings['url_style'])) { $Settings['url_style'] = 1; }
-if($Settings['url_style']!=1&&$Settings['url_style']!=2) { 
+if($Settings['url_style']!=1 && $Settings['url_style']!=2) { 
 	$Settings['url_style'] = 1; }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -64,41 +64,41 @@ a:active {
  <body>
 <?php
 function file_list_dir($dirname,$lsfile=true,$lsdir=true) {
-if(!isset($dirnum)) { $dirnum = null; }
-if($lsfile!==true&&$lsfile!==false) { $lsfile = true; }
-if($lsdir!==true&&$lsdir!==false) { $lsdir = true; }
-if($dirname=="."||$dirname=="..") { $dirname = $dirname."/"; }
-$srcfile = array();
-$srcdir = array();
-if ($handle = opendir($dirname)) {
-while (false !== ($file = readdir($handle))) {
+   if(!isset($dirnum)) { $dirnum = null; }
+   if($lsfile!==true && $lsfile!==false) { $lsfile = true; }
+   if($lsdir!==true && $lsdir!==false) { $lsdir = true; }
+   if($dirname=="." || $dirname=="..") { $dirname = $dirname."/"; }
+   $srcfile = array();
+   $srcdir = array();
+   if ($handle = opendir($dirname)) {
+   while (false !== ($file = readdir($handle))) {
       if ($dirnum==null) { $dirnum = 0; }
 	  if ($file != "." && $file != ".." && $file != ".htaccess" && $file != null) {
-      if(filetype($dirname.$file)=="file"&&$lsfile==true) {
-      if($lsdir==false&&$lsfile==true) {
+      if(filetype($dirname.$file)=="file" && $lsfile===true && is_readable($dirname.$file)===true) {
+      if($lsdir===false && $lsfile===true) {
 	  ++$dirnum; }
 	  $srcfile[$dirnum] = $file; }
-      if(filetype($dirname.$file)=="dir"&&$lsdir==true) {
-      if($lsdir==true&&$lsfile==false) {
+      if(filetype($dirname.$file)=="dir" && $lsdir===true && is_readable($dirname.$file)===true) {
+      if($lsdir===true && $lsfile===false && is_readable($dirname.$file)===true) {
 	  ++$dirnum; }
 	  $srcdir[$dirnum] = $file; }
-if($lsdir==true&&$lsfile==true) {
+      if($lsdir===true && $lsfile===true && is_readable($dirname.$file)===true) {
 	  ++$dirnum; }
-	  } }
-if($srcdir!=null&&$lsdir==true) { asort($srcdir); }
-if($srcfile!=null&&$lsfile==true) { asort($srcfile); }
-if($srcdir!=null&&$srcfile!=null&&$lsfile==true&&$lsdir==true) {
-$fulllist = array_merge($srcdir, $srcfile); }
-if($srcdir!=null&&$srcfile==null) { $fulllist = $srcdir; }
-if($srcdir==null&&$srcfile!=null) { $fulllist = $srcfile; }
-if($lsdir==true&&$lsfile==false) { $fulllist = $srcdir; }
-if($lsfile==true&&$lsdir==false) { $fulllist = $srcfile; }
-closedir($handle); }
- return $fulllist; }
+      } }
+      if($srcdir!=null && $lsdir===true) { asort($srcdir); }
+      if($srcfile!=null && $lsfile===true) { asort($srcfile); }
+      if($srcdir!=null && $srcfile!=null && $lsfile===true && $lsdir===true) {
+      $fulllist = array_merge($srcdir, $srcfile); }
+      if($srcdir!=null && $srcfile==null) { $fulllist = $srcdir; }
+      if($srcdir==null && $srcfile!=null) { $fulllist = $srcfile; }
+      if($lsdir===true && $lsfile===false) { $fulllist = $srcdir; }
+      if($lsfile===true && $lsdir===false) { $fulllist = $srcfile; }
+      closedir($handle); }
+   return $fulllist; }
 $ListDir = file_list_dir($Settings['photo_dir'],false,true);
-if(isset($_GET['dir'])&&!in_array($_GET['dir'],$ListDir)) {
+if(isset($_GET['dir']) && !in_array($_GET['dir'],$ListDir)) {
 	$_GET['dir'] = null; }
-if(isset($_GET['dir'])&&in_array($_GET['dir'],$ListDir)) {
+if(isset($_GET['dir']) && in_array($_GET['dir'],$ListDir)) {
 $ListFile = file_list_dir($Settings['photo_dir'].$_GET['dir']."/",true,false);
 $x=1; $y=count($ListFile); $z = 0;
 while ($x <= $y) {
@@ -114,11 +114,11 @@ $eaperture = $exif_data['ApertureValue'];
 $emaxaperture = $exif_data['MaxApertureValue'];
 if(isset($exif_data['DateTime'])) {
 $edate = $exif_data['DateTime']; }
-if(!isset($exif_data['DateTime'])&&
+if(!isset($exif_data['DateTime']) && 
 	isset($exif_data['DateTimeOriginal'])) {
 $edate = $exif_data['DateTimeOriginal']; }
-if(!isset($exif_data['DateTime'])&&
-	!isset($exif_data['DateTimeOriginal'])&&
+if(!isset($exif_data['DateTime']) && 
+	!isset($exif_data['DateTimeOriginal']) && 
 	isset($exif_data['DateTimeDigitized'])) {
 $edate = $exif_data['DateTimeDigitized']; }
 $edatets = strtotime($edate);
