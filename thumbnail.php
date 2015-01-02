@@ -8,10 +8,10 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     Revised BSD License for more details.
 
-    Copyright 2004-2009 iDB Support - http://idb.berlios.de/
-    Copyright 2004-2009 Game Maker 2k - http://gamemaker2k.org/
+    Copyright 2004-2015 iDB Support - http://idb.berlios.de/
+    Copyright 2004-2015 Game Maker 2k - http://gamemaker2k.org/
 
-    $FileInfo: image.php - Last Update: 8/24/2009 Ver 1 - Author: cooldude2k $
+    $FileInfo: thumbnail.php - Last Update: 1/2/2015 Ver 2 - Author: cooldude2k $
 */
 require_once("settings.php");
 header("Content-type: image/jpeg");

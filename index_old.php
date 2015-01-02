@@ -11,15 +11,12 @@
     Copyright 2004-2015 iDB Support - http://idb.berlios.de/
     Copyright 2004-2015 Game Maker 2k - http://gamemaker2k.org/
 
-    $FileInfo: index_new.php - Last Update: 1/2/2015 Ver 2 - Author: cooldude2k $
+    $FileInfo: index_old.php - Last Update: 1/2/2015 Ver 2 - Author: cooldude2k $
 */
-require_once("settings.php"); 
-$_GET['num'] = 2;
-/*
-if(!isset($_GET['num'])) { $_GET['num'] = 2; }
-if(!is_numeric($_GET['num'])) { $_GET['num'] = 2; }
-if($_GET['num']<5&&$_GET['num']>25) { $_GET['num'] = 2; }
-*/
+require_once("settings.php");
+if(!isset($_GET['num'])) { $_GET['num'] = 5; }
+if(!is_int($_GET['num'])) { $_GET['num'] = 5; }
+if($_GET['num']<5||$_GET['num']>25) { $_GET['num'] = 5; }
 if(!isset($Settings['url_style'])) { $Settings['url_style'] = 1; }
 if($Settings['url_style']!=1&&$Settings['url_style']!=2) { 
 	$Settings['url_style'] = 1; }
@@ -100,7 +97,7 @@ if(isset($_GET['dir'])&&!in_array($_GET['dir'],$ListDir)) {
 	$_GET['dir'] = null; }
 if(isset($_GET['dir'])&&in_array($_GET['dir'],$ListDir)) {
 $ListFile = file_list_dir($Settings['photo_dir'].$_GET['dir']."/",true,false);
-$x=1; $y=count($ListFile); $z = 0;
+$x=0; $y=count($ListFile); $z = 0;
 while ($x <= $y) {
 if(isset($ListFile[$x])===true && $ListFile[$x]!=null) {
 $exif_data = exif_read_data($Settings['photo_dir'].$_GET['dir']."/".$ListFile[$x]);
@@ -109,28 +106,13 @@ $emodel = trim(preg_replace('/\s\s+/', ' ', $exif_data['Model']));
 $eexposuretime = $exif_data['ExposureTime'];
 $efnumber = $exif_data['FNumber'];
 $eiso = $exif_data['ISOSpeedRatings'];
-$eshutter = $exif_data['ShutterSpeedValue'];
-$eaperture = $exif_data['ApertureValue'];
-$emaxaperture = $exif_data['MaxApertureValue'];
-if(isset($exif_data['DateTime'])) {
-$edate = $exif_data['DateTime']; }
-if(!isset($exif_data['DateTime'])&&
-	isset($exif_data['DateTimeOriginal'])) {
-$edate = $exif_data['DateTimeOriginal']; }
-if(!isset($exif_data['DateTime'])&&
-	!isset($exif_data['DateTimeOriginal'])&&
-	isset($exif_data['DateTimeDigitized'])) {
-$edate = $exif_data['DateTimeDigitized']; }
-$edatets = strtotime($edate);
-if($z==0) { echo "  <table border=\"1\" style=\"border-color: skyblue;\">\n   <tr style=\"border-color: transparent;\">\n"; }
-echo "    <td style=\"border-color: seagreen;\">\n";
+$edate = $exif_data['DateTime'];
 if($Settings['url_style']==1) { 
-echo "     <a href=\"".$Settings['image']."?dir=".$_GET['dir']."&amp;file=".$ListFile[$x]."\"><img style=\"width: 160px; height: 120px;\" src=\"".$Settings['thumbnail']."?dir=".$_GET['dir']."&amp;file=".$ListFile[$x]."\" alt=\"".$ListFile[$x]."\" title=\"".$emodel."\" /></a> <textarea readonly=\"readonly\" style=\"color: skyblue; background-color: transparent; border-color: transparent; width: 300px; height: 150px;\" id=\"".base64_encode($ListFile[$x])."\" name=\"".base64_encode($ListFile[$x])."\" rows=\"7\" cols=\"29\">Make: ".$emake."\nModel: ".$emodel."\nExposure: ".$eexposuretime."\nF Number: ".$efnumber."\nISO Speed: ".$eiso."\nShutter Speed: ".$eshutter."\nAperture Value: ".$eaperture."\nMax Aperture Value: ".$emaxaperture."\nDate: ".date($Settings['date_format'], $edatets)."\nTime: ".date($Settings['time_format'], $edatets)."</textarea>\n"; }
+echo "  <a href=\"".$Settings['image']."?dir=".$_GET['dir']."&amp;file=".$ListFile[$x]."\"><img style=\"width: 160px; height: 120px;\" src=\"".$Settings['thumbnail']."?dir=".$_GET['dir']."&amp;file=".$ListFile[$x]."\" alt=\"".$ListFile[$x]."\" title=\"".$emodel."\" /></a>\n"; }
 if($Settings['url_style']==2) { 
-echo "     <a href=\"".$Settings['image']."/".$_GET['dir']."/".$ListFile[$x]."\"><img style=\"width: 160px; height: 120px;\" src=\"".$Settings['thumbnail']."/".$_GET['dir']."/thumbnail/".$ListFile[$x]."\" alt=\"".$ListFile[$x]."\" title=\"".$emodel."\" /></a> <textarea readonly=\"readonly\" style=\"color: skyblue; background-color: transparent; border-color: transparent; width: 300px; height: 125px;\" id=\"".base64_encode($ListFile[$x])."\" name=\"".base64_encode($ListFile[$x])."\" rows=\"7\" cols=\"29\">Make: ".$emake."\nModel: ".$emodel."\nExposure: ".$eexposuretime."\nF Number: ".$efnumber."\nISO Speed: ".$eiso."\nShutter Speed: ".$eshutter."\nAperture Value: ".$eaperture."\nMax Aperture Value: ".$emaxaperture."\nDate: ".date($Settings['date_format'], $edatets)."\nTime: ".date($Settings['time_format'], $edatets)."</textarea>\n"; }
-echo "    </td>\n"; }
+echo "  <a href=\"".$Settings['image']."/".$_GET['dir']."/".$ListFile[$x]."\"><img style=\"width: 160px; height: 120px;\" src=\"".$Settings['thumbnail']."/".$_GET['dir']."/thumbnail/".$ListFile[$x]."\" alt=\"".$ListFile[$x]."\" title=\"".$emodel."\" /></a>\n"; }
 ++$z;
-if(($z==$_GET['num']) || ($z<$_GET['num'] && $x==$y)) { echo "   </tr>\n  </table>\n"; $z = 0; }
+if($z==$_GET['num']) { echo "  <br />\n"; $z = 0; } }
 ++$x; } }
 if(!isset($_GET['dir'])) {
 $x=0; $y=count($ListDir);
