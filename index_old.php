@@ -20,7 +20,7 @@ if($_GET['num']<5 || $_GET['num']>25) { $_GET['num'] = 5; }
 if(!isset($Settings['url_style'])) { $Settings['url_style'] = 1; }
 if($Settings['url_style']!=1 && $Settings['url_style']!=2) { 
 	$Settings['url_style'] = 1; }
-if(isset($_GET['dir']) && !in_array($_GET['dir'],$ListDir)) {
+if(!isset($_GET['dir']) || $_GET['dir']==null) {
 	$_GET['dir'] = null; }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -99,6 +99,8 @@ function file_list_dir($dirname,$lsfile=true,$lsdir=true) {
       closedir($handle); }
    return $fulllist; }
 $ListDir = file_list_dir($Settings['photo_dir'],false,true);
+if(isset($_GET['dir']) && !in_array($_GET['dir'],$ListDir)) {
+	$_GET['dir'] = null; }
 if(isset($_GET['dir']) && in_array($_GET['dir'],$ListDir)) {
 $ListFile = file_list_dir($Settings['photo_dir'].$_GET['dir']."/",true,false);
 $x=0; $y=count($ListFile); $z = 0;
