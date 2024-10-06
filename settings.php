@@ -14,10 +14,11 @@
     $FileInfo: settings.php - Last Update: 1/2/2015 Ver 2.5 - Author: cooldude2k $
 */
 $File3Name = basename($_SERVER['SCRIPT_NAME']);
-if ($File3Name=="settings.php"||$File3Name=="/settings.php"||
-    $File3Name=="settingsbak.php"||$File3Name=="/settingsbak.php") {
+if ($File3Name == "settings.php" || $File3Name == "/settings.php" ||
+    $File3Name == "settingsbak.php" || $File3Name == "/settingsbak.php") {
     @header('Location: index.php');
-    exit(); }
+    exit();
+}
 $Settings['photo_url'] = "./";
 $Settings['photo_dir'] = "./Photos/";
 $Settings['photo_style'] = "new";
@@ -28,4 +29,3 @@ $Settings['thumbnail'] = "thumbnail.php";
 $Settings['date_format'] = "m/d/Y";
 $Settings['time_format'] = "H:i:s";
 $Settings['site_title'] = "Image Viewer 2k";
-?>

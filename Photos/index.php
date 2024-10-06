@@ -14,4 +14,3 @@
     $FileInfo: index.php - Last Update: 1/2/2015 Ver 2.5 - Author: cooldude2k $
 */
 header("Location: ../index.php");
-?>
